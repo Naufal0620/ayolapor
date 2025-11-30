@@ -175,16 +175,32 @@ class Admin extends CI_Controller {
 			$upload_photo = $this->_upload_images(
 				"foto_bukti",
 				$data["id_user"] . "_" . time(),
-				$table
+				"foto_bukti"
 			);
 			if ($upload_photo["status"]) {
 				$photo = $upload_photo["filename"];
-				$data["foto_bukti"] = "assets/dist/img/$table/" . $photo;
+				$data["foto_bukti"] = "uploads/foto_bukti/" . $photo;
 			} else {
-				$data["foto_bukti"] = "assets/dist/img/$table/none.png";
+				$data["foto_bukti"] = "assets/dist/img/none.png";
 			}
 		} elseif (!$id) {
-			$data["foto_bukti"] = "assets/dist/img/$table/none.png";
+			$data["foto_bukti"] = "assets/dist/img/none.png";
+		}
+
+		if ($_FILES["foto_bukti_selesai"]["size"] > 0) {
+			$upload_photo = $this->_upload_images(
+				"foto_bukti_selesai",
+				$data["id_user"] . "_" . time(),
+				"foto_bukti_selesai"
+			);
+			if ($upload_photo["status"]) {
+				$photo = $upload_photo["filename"];
+				$data["foto_bukti_selesai"] = "uploads/foto_bukti_selesai/" . $photo;
+			} else {
+				$data["foto_bukti_selesai"] = "assets/dist/img/none.png";
+			}
+		} elseif (!$id) {
+			$data["foto_bukti_selesai"] = "assets/dist/img/none.png";
 		}
 
         if ($id) {
@@ -409,12 +425,13 @@ class Admin extends CI_Controller {
 		$maxHeight = 4500
 	) {
 		$config = [];
-		$config["upload_path"] = "./assets/dist/img/" . $folder . "/";
+		$config["upload_path"] = "./uploads/" . $folder . "/";
 		$config["allowed_types"] = $ext;
 		$config["max_size"] = $maxSize; //set max size allowed in Kilobyte
 		$config["max_width"] = $maxWidth; // set max width image allowed
 		$config["max_height"] = $maxHeight; // set max height allowed
 		$config["file_name"] = $folder . "_" . $name;
+		$config['encrypt_name']  = TRUE;
 		$config["file_ext_tolower"] = true;
 
 		$this->load->library("upload", $config, $fieldName); // Create custom object for foto upload

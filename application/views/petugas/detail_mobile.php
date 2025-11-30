@@ -36,10 +36,45 @@
                <i class="fas fa-directions me-2"></i> Buka Rute (Maps)
             </a>
 
-            <button onclick="selesaikanTugas(<?= $row->id_pengaduan ?>)" 
+            <button type="button"
+                    data-bs-toggle="modal" 
+                    data-bs-target="#modalSelesai"
                     class="btn btn-success btn-action-lg text-white shadow-sm">
-                <i class="fas fa-check-circle me-2"></i> Tandai Selesai
+                <i class="fas fa-check-circle me-2"></i> Lapor Selesai
             </button>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="modalSelesai" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-bottom-sheet">
+        <div class="modal-content rounded-4 border-0">
+            <div class="modal-header border-0 pb-0">
+                <h5 class="modal-title fw-bold">Laporan Pengerjaan</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <form id="formSelesai" enctype="multipart/form-data">
+                    <input type="hidden" name="id_pengaduan" value="<?= $row->id_pengaduan ?>">
+                    
+                    <div class="mb-3">
+                        <label class="form-label fw-bold small">Foto Bukti Perbaikan <span class="text-danger">*</span></label>
+                        <input type="file" name="foto_selesai" class="form-control" accept="image/*" required>
+                        <div class="form-text text-xs">Pastikan foto terlihat jelas.</div>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label fw-bold small">Keterangan Pengerjaan <span class="text-danger">*</span></label>
+                        <textarea name="keterangan_admin" class="form-control" rows="3" placeholder="Contoh: Jalan sudah ditambal aspal hotmix..." required></textarea>
+                    </div>
+
+                    <div class="d-grid">
+                        <button type="submit" class="btn btn-primary fw-bold py-2">
+                            KIRIM LAPORAN
+                        </button>
+                    </div>
+                </form>
+            </div>
         </div>
     </div>
 </div>

@@ -56,7 +56,7 @@
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     
     <?php if(isset($libjs)): ?>
-        <script src="<?= base_url('assets/libjs/'.$libjs.'.js?v=" . time() . "') ?>"></script>
+        <script src="<?= base_url('assets/libjs/'.$libjs.'.js?v=' . time()) ?>"></script>
     <?php endif; ?>
 
 </body>

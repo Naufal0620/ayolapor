@@ -150,7 +150,6 @@ $(document).ready(function() {
     });
 
     // --- 5. Load Riwayat Logic ---
-
     function loadRiwayat() {
         $.ajax({
             url: BASE_URL + 'users/riwayat_json',
@@ -169,30 +168,72 @@ $(document).ready(function() {
                     $.each(data, function(i, item) {
                         // Badge Status Class
                         let badgeClass = 'status-pending';
+                        let badgeColor = 'secondary';
                         let statusText = 'Menunggu';
+
+                        if(item.status === 'Proses') { badgeClass = 'status-proses'; badgeColor = 'info'; statusText = 'Sedang Diperbaiki'; }
+                        else if(item.status === 'Selesai') { badgeClass = 'status-selesai'; badgeColor = 'success'; statusText = 'Selesai'; }
+                        else if(item.status === 'Tolak') { badgeClass = 'status-tolak'; badgeColor = 'danger'; statusText = 'Ditolak'; }
                         
-                        if(item.status === 'Proses') { badgeClass = 'status-proses'; statusText = 'Sedang Diperbaiki'; }
-                        else if(item.status === 'Selesai') { badgeClass = 'status-selesai'; statusText = 'Selesai'; }
-                        else if(item.status === 'Tolak') { badgeClass = 'status-tolak'; statusText = 'Ditolak'; }
+                        let dataString = encodeURIComponent(JSON.stringify(item));
 
                         html += `
-                        <div class="history-item ${badgeClass}">
+                        <div class="history-item ${badgeClass}" onclick="bukaDetail('${dataString}')" style="cursor:pointer;">
                             <div class="d-flex justify-content-between mb-1">
                                 <small class="text-muted">${formatDate(item.tgl_pengaduan)}</small>
-                                <span class="badge bg-secondary">${statusText}</span>
+                                <span class="badge bg-${badgeColor}">${statusText}</span>
                             </div>
                             <h6 class="fw-bold mb-1">${item.lokasi_text}</h6>
                             <p class="small text-muted mb-0 text-truncate">${item.keterangan_pengaduan}</p>
                         </div>`;
                     });
                 }
-                
                 $('#riwayatListContainer').html(html);
             },
             error: function() {
                 $('#riwayatListContainer').html('<p class="text-center text-danger">Gagal memuat data.</p>');
             }
         });
+
+        // Buka Detail
+        window.bukaDetail = function(dataStr) {
+            let item = JSON.parse(decodeURIComponent(dataStr));
+            
+            // Isi Data Tab 1 (Laporan User)
+            $('#detailFotoAwal').attr('src', BASE_URL + item.foto_bukti);
+            $('#detailKetAwal').text(item.keterangan_pengaduan);
+            $('#detailTanggal').text(formatDate(item.tgl_pengaduan));
+            
+            // Set Status Badge
+            let statusText = item.status;
+            let badgeColor = 'bg-secondary';
+            if(item.status === 'Selesai') badgeColor = 'bg-success';
+            if(item.status === 'Proses') badgeColor = 'bg-info';
+            if(item.status === 'Tolak') badgeColor = 'bg-danger';
+            
+            $('#detailStatusBadge')
+                .removeClass('bg-secondary bg-success bg-info bg-danger')
+                .addClass(badgeColor)
+                .text(statusText);
+
+            // Logika Tab 2 (Bukti Selesai)
+            let tabSelesai = new bootstrap.Tab(document.querySelector('#tab-selesai'));
+            let btnSelesai = $('#tab-selesai');
+
+            if (item.status === 'Selesai' && item.foto_bukti_selesai) {
+                btnSelesai.prop('disabled', false); // Aktifkan tab
+                $('#detailFotoSelesai').attr('src', BASE_URL + item.foto_bukti_selesai);
+                $('#detailKetAdmin').text(item.keterangan_admin || "Tidak ada keterangan.");
+            } else {
+                btnSelesai.prop('disabled', true); // Matikan tab jika belum selesai
+                // Pastikan balik ke tab 1
+                let tabAwal = new bootstrap.Tab(document.querySelector('#tab-laporan'));
+                tabAwal.show();
+            }
+
+            // Tampilkan Modal
+            $('#modalDetailRiwayat').modal('show');
+        };
     }
 
     // Helper Date Format
@@ -200,5 +241,4 @@ $(document).ready(function() {
         let date = new Date(dateString);
         return date.toLocaleDateString('id-ID', {day: 'numeric', month: 'short', year: 'numeric'});
     }
-
 });

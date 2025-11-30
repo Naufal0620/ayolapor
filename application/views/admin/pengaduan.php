@@ -112,6 +112,19 @@
                                 src="<?php echo base_url(); ?>assets/dist/img/none.png" width="80%"></img>
                         </div>
                         <div class="form-group">
+                            <label for="foto_bukti_selesai">Foto Bukti Selesai</label>
+                            <div class="input-group">
+                                <div class="custom-file">
+                                    <input type="file" class="custom-file-input optional" id="foto_bukti_selesai" name="foto_bukti_selesai" accept=".jpg,.jpeg,.png">
+                                    <label class="custom-file-label" for="foto_bukti_selesai" id="foto_bukti_selesai_filename">Pilih Foto</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group text-center">
+                            <img id="foto_bukti_selesai_preview" class="rounded"
+                                src="<?php echo base_url(); ?>assets/dist/img/none.png" width="80%"></img>
+                        </div>
+                        <div class="form-group">
                             <label for="keterangan_pengaduan">Keterangan Pengaduan <span class="text-danger">*</span></label>
                             <textarea class="form-control" id="keterangan_pengaduan" name="keterangan_pengaduan"
                                 placeholder="Masukkan Keterangan Pengaduan"></textarea>

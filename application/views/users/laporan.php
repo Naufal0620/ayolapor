@@ -109,7 +109,45 @@
                 </div>
             </div>
         </div>
+    </div>
 
+    <div class="modal fade" id="modalDetailRiwayat" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content rounded-4">
+                <div class="modal-header border-0">
+                    <h5 class="modal-title fw-bold">Detail Laporan</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body p-0">
+                    <ul class="nav nav-pills nav-fill p-2 bg-light mx-3 rounded-3 mb-3" id="pills-tab" role="tablist">
+                        <li class="nav-item">
+                            <button class="nav-link active rounded-3 small fw-bold" id="tab-laporan" data-bs-toggle="pill" data-bs-target="#content-laporan" type="button">Laporan Anda</button>
+                        </li>
+                        <li class="nav-item">
+                            <button class="nav-link rounded-3 small fw-bold" id="tab-selesai" data-bs-toggle="pill" data-bs-target="#content-selesai" type="button" disabled>Bukti Selesai</button>
+                        </li>
+                    </ul>
+
+                    <div class="tab-content px-3 pb-3">
+                        <div class="tab-pane fade show active" id="content-laporan">
+                            <img id="detailFotoAwal" src="" class="w-100 rounded-3 mb-3 shadow-sm" style="height: 200px; object-fit: cover;">
+                            <label class="small text-muted fw-bold">Keterangan Anda:</label>
+                            <p id="detailKetAwal" class="small mb-0"></p>
+                        </div>
+                        
+                        <div class="tab-pane fade" id="content-selesai">
+                            <img id="detailFotoSelesai" src="" class="w-100 rounded-3 mb-3 shadow-sm" style="height: 200px; object-fit: cover;">
+                            <label class="small text-muted fw-bold">Tanggapan Petugas:</label>
+                            <p id="detailKetAdmin" class="small mb-0"></p>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer border-0 bg-light rounded-bottom-4">
+                    <span id="detailStatusBadge" class="badge bg-secondary p-2">Status</span>
+                    <small class="text-muted ms-auto" id="detailTanggal">-</small>
+                </div>
+            </div>
+        </div>
     </div>
 
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
@@ -121,7 +159,7 @@
         const BASE_URL = "<?= base_url() ?>";
     </script>
     
-    <script src="<?= base_url('assets/libjs/users/laporan_logic.js') ?>"></script>
+    <script src="<?= base_url('assets/libjs/users/laporan_logic.js?v=' . time()) ?>"></script>
 
 </body>
 </html>

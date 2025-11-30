@@ -1,7 +1,7 @@
 <div class="row">
     <?php if(empty($tugas)): ?>
         <div class="col-12 text-center" style="margin-top: 30vh;">
-            <img src="<?= base_url('assets/dist/img/no-data.svg') ?>" width="150" class="mb-3">
+            <img src="<?= base_url('assets/dist/img/no-data.png') ?>" width="150" class="mb-3">
             <h6 class="text-muted">Hore! Tidak ada jalan rusak.</h6>
         </div>
     <?php else: ?>

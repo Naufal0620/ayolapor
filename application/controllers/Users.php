@@ -71,7 +71,7 @@ class Users extends CI_Controller {
         }
 
         // Upload Config
-        $upload_path = './assets/dist/img/pengaduan/';
+        $upload_path = './uploads/foto_bukti/';
         // Pastikan folder ada
         if (!is_dir($upload_path)) {
             mkdir($upload_path, 0777, true);
@@ -91,15 +91,13 @@ class Users extends CI_Controller {
 
         $file_data = $this->upload->data();
         
-        // --- PERBAIKAN DI SINI ---
-        // Menyesuaikan dengan kolom database 'pengaduan' yang ada
         $insert_data = [
             'id_user'              => $this->session->userdata('id_user'),
             'tgl_pengaduan'        => date('Y-m-d H:i:s'),
             'lokasi_text'          => $this->input->post('lokasi_text', TRUE),
             'latitude'             => $this->input->post('latitude', TRUE),
             'longitude'            => $this->input->post('longitude', TRUE),
-            'foto_bukti'           => 'assets/dist/img/pengaduan/' . $file_data['file_name'],
+            'foto_bukti'           => 'uploads/foto_bukti/' . $file_data['file_name'],
             'keterangan_pengaduan' => $this->input->post('keterangan_pengaduan', TRUE),
             'status'               => 'Pending',
             'updated_at'           => date('Y-m-d H:i:s')

@@ -9,10 +9,9 @@ let form_element = {};
 form_element['input'] = ['#id', '#latitude', '#longitude'];
 form_element['select'] = ['#id_user', '#status'];
 form_element['textarea'] = ['#lokasi_text', '#keterangan_pengaduan', '#keterangan_admin'];
-form_element['imageInput'] = ['#foto_bukti'];
-form_element['imagePreview'] = ['#foto_bukti_preview'];
-form_element['imageFileName'] = ['#foto_bukti_filename'];
-
+form_element['imageInput'] = ['#foto_bukti', '#foto_bukti_selesai'];
+form_element['imagePreview'] = ['#foto_bukti_preview', '#foto_bukti_selesai_preview'];
+form_element['imageFileName'] = ['#foto_bukti_filename', '#foto_bukti_selesai_filename'];
 
 // --- Inisialisasi Peta ---
 // Set view awal ke Indonesia (Medan) sebagai default
@@ -31,6 +30,18 @@ $(document).ready(function () {
         reader.onload = function (e) {
             $(form_element['imagePreview'][0]).attr('src', e.target.result);
             $(form_element['imageFileName'][0]).html($(form_element['imageInput'][0]).val().replace(/C:\\fakepath\\/i, ''));
+        }
+
+        reader.readAsDataURL(file);
+    });
+
+    $(form_element['imageInput'][1]).on('change', function (e) {
+        var file = e.target.files[0];
+        var reader = new FileReader();
+
+        reader.onload = function (e) {
+            $(form_element['imagePreview'][1]).attr('src', e.target.result);
+            $(form_element['imageFileName'][1]).html($(form_element['imageInput'][1]).val().replace(/C:\\fakepath\\/i, ''));
         }
 
         reader.readAsDataURL(file);
@@ -179,6 +190,7 @@ $(document).on('click', '.btn-tambah-pengaduan', function (e) {
     $(form_id[0] + ' textarea').html('');
     $("#bukti_foto_filename").html('Pilih Foto');
     $(form_id + ' #foto_bukti_preview').attr('src', base_url + 'assets/dist/img/none.png');
+    $(form_id + ' #foto_bukti_selesai_preview').attr('src', base_url + 'assets/dist/img/none.png');
     $(form_element['select'][0]).html('<option value="" hidden selected>-- Pilih --</option>');
 
     $.ajax({
@@ -230,6 +242,7 @@ $(document).on('click', '.btn-edit-pengaduan', function (e) {
     $(form_id[0] + ' textarea').html('');
     $("#bukti_foto_filename").html('Pilih Foto');
     $(form_id + ' #foto_bukti_preview').attr('src', base_url + 'assets/dist/img/none.png');
+    $(form_id + ' #foto_bukti_selesai_preview').attr('src', base_url + 'assets/dist/img/none.png');
     $(form_element['select'][0]).html('<option value="" hidden selected>-- Pilih --</option>');
 
     $.ajax({
@@ -277,6 +290,9 @@ $(document).on('click', '.btn-edit-pengaduan', function (e) {
                 $(form_element['select'][1]).val(data[10]);
 
                 $(form_element['imagePreview'][0]).attr('src', base_url + data[6]);
+                if (data[7]) {
+                    $(form_element['imagePreview'][1]).attr('src', base_url + data[7]);
+                }
 
                 $(modal_form_id[0]).modal('show');
 

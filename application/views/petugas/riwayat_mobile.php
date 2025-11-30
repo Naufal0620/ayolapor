@@ -18,16 +18,22 @@
         </div>
     <?php else: ?>
 
-        <?php foreach($riwayat as $row): ?>
+        <?php foreach($riwayat as $row): 
+            // Kita encode data row menjadi JSON aman agar bisa dibaca JS
+            $data_json = htmlspecialchars(json_encode($row), ENT_QUOTES, 'UTF-8');
+        ?>
         <div class="col-12 mb-3 item-riwayat">
-            <div class="card border-0 shadow-sm p-2" style="border-radius: 15px;">
+            <div class="card border-0 shadow-sm p-2" 
+                style="border-radius: 15px; cursor: pointer;"
+                onclick="bukaDetail('<?= $data_json ?>')">
+                
                 <div class="d-flex align-items-center">
                     
                     <div style="width: 80px; height: 80px; flex-shrink: 0;">
                         <img src="<?= base_url($row->foto_bukti) ?>" 
-                             class="w-100 h-100 rounded-3" 
-                             style="object-fit: cover;"
-                             alt="Bukti">
+                            class="w-100 h-100 rounded-3" 
+                            style="object-fit: cover;"
+                            alt="Bukti">
                     </div>
 
                     <div class="ms-3 flex-grow-1">
@@ -55,8 +61,54 @@
             </div>
         </div>
         <?php endforeach; ?>
-
     <?php endif; ?>
 </div>
 
 <div style="height: 50px;"></div>
+
+<div class="modal fade" id="modalDetailRiwayat" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content rounded-4 border-0">
+            <div class="modal-header border-0 pb-0">
+                <h5 class="modal-title fw-bold">Detail Pekerjaan</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body p-0">
+                <ul class="nav nav-pills nav-fill p-2 bg-light mx-3 rounded-3 mb-3" role="tablist">
+                    <li class="nav-item">
+                        <button class="nav-link active rounded-3 small fw-bold" id="tab-laporan" data-bs-toggle="pill" data-bs-target="#content-laporan" type="button">Sebelum</button>
+                    </li>
+                    <li class="nav-item">
+                        <button class="nav-link rounded-3 small fw-bold" id="tab-selesai" data-bs-toggle="pill" data-bs-target="#content-selesai" type="button">Sesudah</button>
+                    </li>
+                </ul>
+
+                <div class="tab-content px-3 pb-3">
+                    <div class="tab-pane fade show active" id="content-laporan">
+                        <img id="detailFotoAwal" src="" class="w-100 rounded-3 mb-3 shadow-sm" style="height: 200px; object-fit: cover;">
+                        
+                        <div class="bg-light p-3 rounded-3 mb-2">
+                            <label class="small text-muted fw-bold d-block">Pelapor:</label>
+                            <span id="detailPelapor" class="fw-bold text-dark">User</span>
+                        </div>
+
+                        <label class="small text-muted fw-bold">Keterangan Kerusakan:</label>
+                        <p id="detailKetAwal" class="small mb-0 text-dark"></p>
+                    </div>
+                    
+                    <div class="tab-pane fade" id="content-selesai">
+                        <img id="detailFotoSelesai" src="" class="w-100 rounded-3 mb-3 shadow-sm" style="height: 200px; object-fit: cover;">
+                        
+                        <div class="bg-success bg-opacity-10 p-3 rounded-3 mb-2 border border-success">
+                            <label class="small text-success fw-bold d-block">Status:</label>
+                            <span class="fw-bold text-success"><i class="fas fa-check-circle"></i> Selesai Dikerjakan</span>
+                        </div>
+
+                        <label class="small text-muted fw-bold">Laporan Pengerjaan Anda:</label>
+                        <p id="detailKetAdmin" class="small mb-0 text-dark"></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
