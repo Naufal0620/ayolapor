@@ -271,10 +271,10 @@ $(document).on('click', '.btn-edit-pengaduan', function (e) {
                 $(form_element['input'][1]).val(data[4]);
                 $(form_element['input'][2]).val(data[5]);
                 $(form_element['textarea'][0]).html(data[3]);
-                $(form_element['textarea'][1]).html(data[7]);
-                $(form_element['textarea'][2]).html(data[8]);
+                $(form_element['textarea'][1]).html(data[8]);
+                $(form_element['textarea'][2]).html(data[9]);
                 $(form_element['select'][0]).val(data[1]);
-                $(form_element['select'][1]).val(data[9]);
+                $(form_element['select'][1]).val(data[10]);
 
                 $(form_element['imagePreview'][0]).attr('src', base_url + data[6]);
 

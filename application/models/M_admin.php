@@ -2,7 +2,7 @@
 
 defined("BASEPATH") or exit("No direct script access allowed");
 
-class Main_model extends CI_Model
+class M_admin extends CI_Model
 {
 	var $table,
 		$column_order,
@@ -198,4 +198,4 @@ class Main_model extends CI_Model
 	}
 }
 
-/* End of file Main_model.php */
+/* End of file M_admin.php */

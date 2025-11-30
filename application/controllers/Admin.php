@@ -7,11 +7,11 @@ class Admin extends CI_Controller {
     public function __construct()
 	{
 		parent::__construct();
-		$this->load->model("main_model", "MM");
+		$this->load->model("M_admin", "MM");
 
-		// if (!$this->MM->cek_user_login("users", "user_id")) {
-		// 	redirect("login/logout/admin");
-		// }
+		if (!$this->session->userdata('logged_in') || $this->session->userdata('role') !== 'admin') {
+            redirect('auth/admin');
+        }
 	}
 
     public function index()

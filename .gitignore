@@ -30,3 +30,14 @@ user_guide_src/cilexer/pycilexer.egg-info/*
 *.sublime-project
 /tests/tests/
 /tests/results/
+
+node_modules/
+
+.prettierignore
+.prettierrc.json
+package-lock.json
+package.json
+
+db_ayolapor.sql
+
+.vscode/

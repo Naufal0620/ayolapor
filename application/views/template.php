@@ -61,12 +61,9 @@
     <ul class="navbar-nav ml-auto">
       <!-- Navbar Search -->
       <li class="nav-item">
-        <a class="nav-link btn btn-danger text-white" role="button" id="btn-logout" data-role="<?= $this->session->userdata(
-        	"role",
-        ) ?>">
-            Keluar&nbsp;&nbsp;
-          <i class="fas fa-sign-out-alt"></i>
-        </a>
+          <a href="<?= base_url('auth/logout') ?>" class="btn btn-danger text-white nav-link">
+              <i class="nav-icon fas fa-sign-out-alt"></i> Keluar
+          </a>
       </li>
     </ul>
   </nav>
