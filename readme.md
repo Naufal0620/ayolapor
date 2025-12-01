@@ -96,6 +96,6 @@ ayolapor/
 └── uploads/            (Folder penyimpanan bukti foto)
 ```
 
-# Dibuat oleh
+## Dibuat oleh
 
 Dikembangkan oleh **PSIK 25 A Kelompok 3 Logika Informatika** sebagai projek sistem informasi layanan masyarakat.
