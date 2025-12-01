@@ -31,7 +31,11 @@ user_guide_src/cilexer/pycilexer.egg-info/*
 /tests/tests/
 /tests/results/
 
+# other files
+#-------------------------
 node_modules/
+uploads/foto_bukti/*
+uploads/foto_bukti_selesai/*
 
 .prettierignore
 .prettierrc.json

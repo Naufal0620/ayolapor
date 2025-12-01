@@ -93,14 +93,14 @@ class Users extends CI_Controller {
         
         $insert_data = [
             'id_user'              => $this->session->userdata('id_user'),
-            'tgl_pengaduan'        => date('Y-m-d H:i:s'),
+            'tgl_pengaduan'        => get_current_time(),
             'lokasi_text'          => $this->input->post('lokasi_text', TRUE),
             'latitude'             => $this->input->post('latitude', TRUE),
             'longitude'            => $this->input->post('longitude', TRUE),
             'foto_bukti'           => 'uploads/foto_bukti/' . $file_data['file_name'],
             'keterangan_pengaduan' => $this->input->post('keterangan_pengaduan', TRUE),
             'status'               => 'Pending',
-            'updated_at'           => date('Y-m-d H:i:s')
+            'updated_at'           => get_current_time()
         ];
 
         // Simpan ke Database

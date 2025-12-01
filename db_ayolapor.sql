@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Nov 29, 2025 at 11:55 AM
+-- Generation Time: Nov 30, 2025 at 08:56 PM
 -- Server version: 8.0.30
 -- PHP Version: 7.4.32
 
@@ -35,18 +35,12 @@ CREATE TABLE `pengaduan` (
   `latitude` varchar(50) DEFAULT NULL COMMENT 'Koordinat Leaflet',
   `longitude` varchar(50) DEFAULT NULL COMMENT 'Koordinat Leaflet',
   `foto_bukti` varchar(255) NOT NULL,
+  `foto_bukti_selesai` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
   `keterangan_pengaduan` text CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL COMMENT 'Keterangan lanjut tentang pengaduan',
   `keterangan_admin` text COMMENT 'Catatan jika ditolak atau progres perbaikan',
   `status` enum('Pending','Proses','Selesai','Tolak') NOT NULL DEFAULT 'Pending',
   `updated_at` datetime DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-
---
--- Dumping data for table `pengaduan`
---
-
-INSERT INTO `pengaduan` (`id_pengaduan`, `id_user`, `tgl_pengaduan`, `lokasi_text`, `latitude`, `longitude`, `foto_bukti`, `keterangan_pengaduan`, `keterangan_admin`, `status`, `updated_at`) VALUES
-(1, 1, '2025-11-29 18:08:22', 'Jln. Bhayangkara', '1.121231', '1.402448', 'assets/dist/img/pengaduan/test.png', 'Jalan Rusak Boy', NULL, 'Pending', '2025-11-29 18:09:38');
 
 -- --------------------------------------------------------
 
@@ -69,7 +63,8 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id_user`, `nama_lengkap`, `email`, `password`, `no_telp`, `role`, `created_at`) VALUES
-(1, 'Super Admin', 'admin@ayolapor.com', '21232f297a57a5a743894a0e4a801fc3', '08123456789', 'admin', '2025-11-27 19:48:05');
+(1, 'Super Admin', 'admin@ayolapor.com', '$2a$12$rvTtUY0yIeL572JlfmhyEuAQpNMJA3Iqgnh3QaYvvaWP3xVLIQR3m', '08123456789', 'admin', '2025-11-27 19:48:05'),
+(2, 'Petugas Pertama', 'petugas1@ayolapor.com', '$2y$10$vk0np2bXx6F9puMB3QTpwe.yx/JdfODVf.QS5kHj/rFjy16wRNH4q', '085211223344', 'petugas', '2025-12-01 01:45:09');
 
 --
 -- Indexes for dumped tables
@@ -97,13 +92,13 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `pengaduan`
 --
 ALTER TABLE `pengaduan`
-  MODIFY `id_pengaduan` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id_pengaduan` int NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id_user` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id_user` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

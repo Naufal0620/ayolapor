@@ -171,6 +171,8 @@ class Admin extends CI_Controller {
 		$table = "pengaduan";
 		$nama_module = "pengaduan";
 
+		$data["updated_at"] = get_current_time();
+
 		if ($_FILES["foto_bukti"]["size"] > 0) {
 			$upload_photo = $this->_upload_images(
 				"foto_bukti",
